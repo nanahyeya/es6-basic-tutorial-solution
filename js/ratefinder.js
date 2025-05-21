@@ -1,6 +1,6 @@
 let url = "rates.json";
     
-fetch(url)
+fetch(url) // Promise
     .then(response => response.json())
     .then(rates => {
       let html = '';
