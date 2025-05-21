@@ -9,7 +9,9 @@
   "scripts": {
     "babel": "babel --presets @babel/preset-env js/main.js -o build/main.bundle.js",
     "start": "http-server -p 9000",
-    "webpack": "webpack"
+    "webpack": "webpack",
+    "dev": "webpack serve"
+
   },
   "keywords": [],
   "author": "",
