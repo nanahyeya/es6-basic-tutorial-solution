@@ -1,6 +1,6 @@
-// named export
-
-export let calculateMonthlyPayment = (principal, years, rate) => {
+//Named export
+//내부에서 만 호출되어서 export 구문을 제거함
+let calculateMonthlyPayment = (principal, years, rate) => {
    let monthlyRate = 0;
    if (rate) {
        monthlyRate = rate / 100 / 12;
@@ -9,9 +9,10 @@ export let calculateMonthlyPayment = (principal, years, rate) => {
            years * 12)));
    return {principal, years, rate, monthlyPayment, monthlyRate};
 };
-   
-// named export
-export let calculateAmortization = (principal, years, rate) => {
+
+//Named export
+//default export 로 변경함
+let calculateAmortization = (principal, years, rate) => {
    let {monthlyRate, monthlyPayment} = calculateMonthlyPayment(principal, years, rate);
    let balance = principal;
    let amortization = [];
@@ -29,3 +30,6 @@ export let calculateAmortization = (principal, years, rate) => {
    }
    return {monthlyPayment, monthlyRate, amortization};
 };
+
+//Default export 로 변경함
+export default calculateAmortization;
