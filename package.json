@@ -11,7 +11,6 @@
     "start": "http-server -p 9000",
     "webpack": "webpack",
     "dev": "webpack serve"
-
   },
   "keywords": [],
   "author": "",
@@ -22,6 +21,7 @@
     "@babel/preset-env": "^7.27.2",
     "babel-loader": "^10.0.0",
     "clean-webpack-plugin": "^4.0.0",
+    "html-webpack-plugin": "^5.6.3",
     "http-server": "^14.1.1",
     "webpack": "^5.99.9",
     "webpack-cli": "^6.0.1",
