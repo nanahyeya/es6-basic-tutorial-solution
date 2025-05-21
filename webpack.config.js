@@ -43,7 +43,9 @@ module.exports = {
     },
     devServer: {
         port: 9000,
-        open: true
+        open: true,
+        hot: false,
+        liveReload: true
     },
     devtool: 'source-map',
     mode: 'development'
