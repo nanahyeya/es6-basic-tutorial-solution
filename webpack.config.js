@@ -1,4 +1,5 @@
 const path = require('path');
+const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 
 module.exports = {
   //entry: './js/main.js',
@@ -10,7 +11,7 @@ module.exports = {
     path: path.resolve(__dirname, 'build'),
     filename: '[name].bundle.js'
   },
-   module: {
+    module: {
        rules: [
          {
            test: /\.js$/,
@@ -24,6 +25,9 @@ module.exports = {
          }
        ]
      },
+    plugins: [
+      new CleanWebpackPlugin()
+    ], // plugins
     stats: {
         colors: true
     },
