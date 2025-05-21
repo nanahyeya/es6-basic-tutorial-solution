@@ -33,7 +33,7 @@ document.getElementById('calcBtn').addEventListener('click', () => {
     // 3)
     //let { monthlyPayment, monthlyRate, amortization } = calcAmortization(principal, years, rate);
 
-     //객체생성성
+     //객체생성
     const mortgage = new Mortgage(principal, years, rate);
     //클래스로 부터 Destructuring Assignment 하기
     const { monthlyPayment, amortization } = mortgage;
@@ -61,5 +61,6 @@ document.getElementById('calcBtn').addEventListener('click', () => {
        </tr>
    `);
     document.getElementById("amortization").innerHTML = html;
-});
+    
+}); // calcBtn click 핸들러 함수
 

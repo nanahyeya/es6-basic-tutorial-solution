@@ -9,6 +9,72 @@
 
 throw new Error("Module parse failed: Unexpected token (1:5)\nYou may need an appropriate loader to handle this file type, currently no loaders are configured to process this file. See https://webpack.js.org/concepts#loaders\n> body {\n|     font-family: 'Roboto', 'Sans Serif';\n|     font-size: 16px;");
 
+/***/ }),
+
+/***/ "./js/mortgageClass.js":
+/*!*****************************!*\
+  !*** ./js/mortgageClass.js ***!
+  \*****************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ Mortgage)
+/* harmony export */ });
+function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
+function _classCallCheck(a, n) { if (!(a instanceof n)) throw new TypeError("Cannot call a class as a function"); }
+function _defineProperties(e, r) { for (var t = 0; t < r.length; t++) { var o = r[t]; o.enumerable = o.enumerable || !1, o.configurable = !0, "value" in o && (o.writable = !0), Object.defineProperty(e, _toPropertyKey(o.key), o); } }
+function _createClass(e, r, t) { return r && _defineProperties(e.prototype, r), t && _defineProperties(e, t), Object.defineProperty(e, "prototype", { writable: !1 }), e; }
+function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
+function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
+var Mortgage = /*#__PURE__*/function () {
+  //생성자
+  function Mortgage(principal, years, rate) {
+    _classCallCheck(this, Mortgage);
+    this.principal = principal;
+    this.years = years;
+    this.rate = rate;
+  }
+
+  //getter 함수
+  return _createClass(Mortgage, [{
+    key: "monthlyPayment",
+    get: function get() {
+      var monthlyRate = this.rate / 100 / 12;
+      return this.principal * monthlyRate / (1 - Math.pow(1 / (1 + monthlyRate), this.years * 12));
+    }
+
+    //getter 함수
+  }, {
+    key: "amortization",
+    get: function get() {
+      var monthlyPayment = this.monthlyPayment;
+      var monthlyRate = this.rate / 100 / 12;
+      var balance = this.principal;
+      var amortization = [];
+      for (var y = 0; y < this.years; y++) {
+        var interestY = 0;
+        var principalY = 0;
+        for (var m = 0; m < 12; m++) {
+          var interestM = balance * monthlyRate;
+          var principalM = monthlyPayment - interestM;
+          interestY = interestY + interestM;
+          principalY = principalY + principalM;
+          balance = balance - principalM;
+        }
+        amortization.push({
+          principalY: principalY,
+          interestY: interestY,
+          balance: balance
+        });
+      }
+      return amortization;
+    }
+  }]);
+}(); //class
+
+
 /***/ })
 
 /******/ 	});
@@ -87,7 +153,7 @@ var __webpack_exports__ = {};
   !*** ./js/main.js ***!
   \********************/
 __webpack_require__.r(__webpack_exports__);
-Object(function webpackMissingModule() { var e = new Error("Cannot find module './mortgageClass'"); e.code = 'MODULE_NOT_FOUND'; throw e; }());
+/* harmony import */ var _mortgageClass__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./mortgageClass */ "./js/mortgageClass.js");
 /* harmony import */ var _css_styles_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../css/styles.css */ "./css/styles.css");
 /* harmony import */ var _css_styles_css__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_css_styles_css__WEBPACK_IMPORTED_MODULE_1__);
 //1) * 를 사용하여 모든 함수를 import
@@ -123,8 +189,8 @@ document.getElementById('calcBtn').addEventListener('click', function () {
   // 3)
   //let { monthlyPayment, monthlyRate, amortization } = calcAmortization(principal, years, rate);
 
-  //객체생성성
-  var mortgage = new Object(function webpackMissingModule() { var e = new Error("Cannot find module './mortgageClass'"); e.code = 'MODULE_NOT_FOUND'; throw e; }())(principal, years, rate);
+  //객체생성
+  var mortgage = new _mortgageClass__WEBPACK_IMPORTED_MODULE_0__["default"](principal, years, rate);
   //클래스로 부터 Destructuring Assignment 하기
   var monthlyPayment = mortgage.monthlyPayment,
     amortization = mortgage.amortization;
@@ -135,7 +201,7 @@ document.getElementById('calcBtn').addEventListener('click', function () {
     return html += "\n       <tr>\n           <td>".concat(index + 1, "</td>\n           <td class=\"currency\">").concat(Math.round(year.principalY), "</td>\n           <td class=\"stretch\">\n               <div class=\"flex\">\n                   <div class=\"bar principal\"\n                        style=\"flex:").concat(year.principalY, ";-webkit-flex:").concat(year.principalY, "\">\n                   </div>\n                   <div class=\"bar interest\"\n                        style=\"flex:").concat(year.interestY, ";-webkit-flex:").concat(year.interestY, "\">\n                   </div>\n               </div>\n           </td>\n           <td class=\"currency left\">").concat(Math.round(year.interestY), "</td>\n           <td class=\"currency\">").concat(Math.round(year.balance), "</td>\n       </tr>\n   ");
   });
   document.getElementById("amortization").innerHTML = html;
-});
+}); // calcBtn click 핸들러 함수
 })();
 
 /******/ })()
